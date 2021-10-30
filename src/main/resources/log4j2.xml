@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="spring-boot-logger" target="SYSTEM_OUT">
+            <PatternLayout 
+              pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
+        </Console>
+        <Console name="spring-jms" target="SYSTEM_OUT">
+      	  <JSONLayout compact="true" eventEol="true" properties="true" stacktraceAsString="true" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="spring-boot-logger" />
+        </Root>
+        <Logger name="springJmsExample-logger" level="info">
+        	<AppenderRef ref="spring-jms" />
+        </Logger>
+    </Loggers>
+</Configuration>
