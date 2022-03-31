@@ -24,7 +24,9 @@ public class ReceiptProcessor {
 	
 	public Receipt processReceipt(Order order) {
 		logger.info("Processing receipt for order ID: " + order.getid());
-		Date estimatedDeliveryTime = new Date();
+		Date date = new Date();
+		long timeMilli = date.getTime();
+		Date estimatedDeliveryTime = new Date(timeMilli + 600000);
 		Receipt testReceipt = new Receipt(order.getUser().getFirstName(), 
 				order.getUser().getEmail(), 
 				order.getTotal(), 
