@@ -19,8 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User {
-	
-    @Id
+	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String firstName;
@@ -98,4 +97,8 @@ public class User {
 		this.orders = orders;
 	}
 
+    @Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	}
 }

@@ -2,37 +2,35 @@ package com.datadog.springJmsExample.receiptProcessor;
 
 import java.util.Date;
 
+import javax.persistence.ManyToOne;
+
+import com.datadog.springJmsExample.domain.User;
+
 public class Receipt {
 	
-	private String user;
-	private String userEmail;
+	@ManyToOne(optional = false)
+	private User user;
 	private Double total;
 	private String items;
 	private Date placedAt;
 	private Date estimatedDeliveryTime;
 	
-	public Receipt(String user, String userEmail, Double total, String items, Date placedAt, Date estimatedDeliveryTime) {
+	public Receipt(User user, Double total, String items, Date placedAt, Date estimatedDeliveryTime) {
 		super();
 		this.user = user;
-		this.userEmail = userEmail;
 		this.total = total;
 		this.items = items;
 		this.placedAt = placedAt;
 		this.estimatedDeliveryTime = estimatedDeliveryTime;
 	}
 
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getUserEmail() {
-		return userEmail;
-	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
+
 	public Double getTotal() {
 		return total;
 	}
@@ -60,7 +58,7 @@ public class Receipt {
 
 	@Override
 	public String toString() {
-		return "Receipt [user=" + user + ", userEmail=" + userEmail + ", total=" + total + ", items=" + items
+		return "Receipt [user=" + user + ", total=" + total + ", items=" + items
 				+ ", placedAt=" + placedAt + ", estimatedDeliveryTime=" + estimatedDeliveryTime + "]";
 	}
 

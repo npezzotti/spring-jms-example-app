@@ -1,5 +1,7 @@
 package com.datadog.springJmsExample.resources;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +35,9 @@ public class UserResource {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<User> registerUser(@RequestBody User user) {
+	public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
 		User newUser = userService.createOrUpdateUser(user);
-		return new ResponseEntity<User>(newUser, HttpStatus.OK);
+		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 
 }

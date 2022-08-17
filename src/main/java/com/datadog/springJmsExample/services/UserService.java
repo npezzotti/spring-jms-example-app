@@ -26,7 +26,7 @@ public class UserService {
 	public User getUserById(Long userId) {
 		Optional<User> user = userRepository.findById(userId);
 		System.out.println(user.isPresent());
-		if (!user.isPresent()) throw new SpringJmsExampleResourceNotFoundException("Could not find user with ID " + userId);
+		if (!user.isPresent()) throw new SpringJmsExampleResourceNotFoundException("User with ID " + userId + "does not exist");
 		return user.get();
 	}
 

@@ -19,7 +19,8 @@ public class ReceiptProcessor {
 	@JmsListener(destination=ORDER_QUEUE)
 	public void retrieveOrder(Order order) {
 		Receipt receipt = this.processReceipt(order);
-		logger.info("Sending receipt for order ID " + order.getid() + ": " + receipt);
+		logger.info("Emailing receipt for order ID " + order.getid() + ": " + receipt);
+//		...code that generates an email to customer
 	}
 	
 	public Receipt processReceipt(Order order) {
@@ -27,13 +28,13 @@ public class ReceiptProcessor {
 		Date date = new Date();
 		long timeMilli = date.getTime();
 		Date estimatedDeliveryTime = new Date(timeMilli + 600000);
-		Receipt testReceipt = new Receipt(order.getUser().getFirstName(), 
-				order.getUser().getEmail(), 
-				order.getTotal(), 
-				order.getBody(), 
+		Receipt testReceipt = new Receipt(
+				order.getUser(),
+				order.getTotal(),
+				order.getItem(), 
 				order.getPlacedAt(), 
 				estimatedDeliveryTime);
 		return testReceipt;
 	}
-	
+
 }

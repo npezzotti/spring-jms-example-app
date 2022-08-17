@@ -1,10 +1,15 @@
 package com.datadog.springJmsExample.services;
 
+import static com.datadog.springJmsExample.JMSConfig.ORDER_QUEUE;
+
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import com.datadog.springJmsExample.domain.Order;
@@ -23,15 +28,15 @@ public class OrderService {
 	@Autowired
 	UserRepository userRepository;
 	@Autowired
-	OrderSenderService orderSenderService;
+    private JmsTemplate jmsTemplate;
 	
-	public Order createOrUpdateOrder(Long userId, Order order) {
-		User user = userRepository.findById(userId).get();
-		System.out.println(user);
-		order.setUser(user);
+	public Order createOrUpdateOrder(@Valid Long userId, Order order) {
+		Optional<User> user = userRepository.findById(userId);
+		if (!user.isPresent()) throw new SpringJmsExampleResourceNotFoundException("User with ID " + userId + "does not exist");
+		order.setUser(user.get());
 		Order newOrder = orderRepository.save(order);
 		logger.info("Received new order: " + newOrder);
-		orderSenderService.sendOrder(newOrder);
+		sendOrder(newOrder);
 		return newOrder;
 	}
 	
@@ -46,8 +51,14 @@ public class OrderService {
 	}
 	
 	public Iterable<Order> getOrdersByUser(Long userId) {
-		User user = userRepository.findById(userId).get();
-		return orderRepository.findByUser(user);
+		Optional<User> user = userRepository.findById(userId);
+		if (!user.isPresent()) throw new SpringJmsExampleResourceNotFoundException("User with ID " + userId + "does not exist");
+		return orderRepository.findByUser(user.get());
+	}
+	
+	public void sendOrder(Order order) {
+		logger.info("Sending new order to order-queue: " + order);
+		jmsTemplate.convertAndSend(ORDER_QUEUE, order);
 	}
 
 }

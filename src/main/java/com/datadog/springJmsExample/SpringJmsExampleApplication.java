@@ -24,16 +24,16 @@ public class SpringJmsExampleApplication {
 		return (args) -> {
 //			Test user
 			User testUser = new User();
-			testUser.setFirstName("Nathan");
-			testUser.setLastName("Pezzotti");
-			testUser.setEmail("npezzotti@email.com");
+			testUser.setFirstName("John");
+			testUser.setLastName("Doe");
+			testUser.setEmail("jdoe@email.com");
 			testUser.setPassword("password");
 			User newUser = userRepository.save(testUser);		
 			
 //			Test Order
 			Order testOrder = new Order();
-			testOrder.setBody("Hello");
-			testOrder.setTotal(100.00);
+			testOrder.setItem("coffee");
+			testOrder.setTotal(1.00);
 			testOrder.setUser(newUser);
 			orderRepository.save(testOrder);
 		};

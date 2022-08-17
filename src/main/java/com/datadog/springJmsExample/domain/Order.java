@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,7 +22,9 @@ public class Order {
 	private Long id;
 	@ManyToOne(optional = false)
 	private User user;
-	private String body;
+	@NotBlank(message = "Item is required.")
+	private String item;
+	@NotNull(message = "Total is required.")
 	private Double total;
 	@CreationTimestamp
 	private Date placedAt;
@@ -44,12 +48,12 @@ public class Order {
 		this.user = user;
 	}
 
-	public String getBody() {
-		return body;
+	public String getItem() {
+		return item;
 	}
 
-	public void setBody(String body) {
-		this.body = body;
+	public void setItem(String item) {
+		this.item = item;
 	}
 
 	public Double getTotal() {
@@ -70,7 +74,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", user=" + user + ", body=" + body + ", placedAt=" + placedAt + "]";
+		return "Order [id=" + id + ", user=" + user + ", item=" + item + ", placedAt=" + placedAt + "]";
 	}
 
 }
