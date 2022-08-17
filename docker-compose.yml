@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  spring-jms-example:
+    build: .
+    container_name: spring-jms-example
+    ports:
+      - "8080:8080"
