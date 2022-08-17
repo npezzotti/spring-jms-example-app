@@ -1,6 +1,6 @@
 # Order System: Docker, Spring Boot, Spring JMS & H2 Database Engine
 
-This application simulates a food-ordering system where (1. a user places an order, (2. the order is processed and saved to a database, and (3. the order is sent to a message queue (using spring-jms) to be consumed by a receipt sending service, which generates a receipt tobe theoretically emailed to the user.
+This application simulates a food-ordering system where (1. a user places an order, (2. the order is processed and saved to a database, and (3. the order is sent to a message queue (using spring-jms) to be consumed by a receipt sending service, which generates a receipt to be theoretically emailed to the user.
 
 # Getting Started
 
